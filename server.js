@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 
 const connectDB = require('./utils/connectDB')
 const Log = require('./models/logs')
+const manyLogs = require('./models/manyLogs')
 
 const app = express()
 const port = 3000;
@@ -42,6 +43,7 @@ app.get('/logs', async (req, res) => {
  *New
 */
 app.get('/logs/new',(req,res)=>{
+    console.log(req.body)
     res.render('New')
 })
 /*
@@ -72,9 +74,12 @@ app.post('/api/logs', async (req,res)=>{
  *Delete/Destroy
  */
 /*
- *Misc
+ *Seed Route
  */
-
+app.get('/api/logs/seed', async(req,res)=>{
+    const createdLogs = await Log.insertMany(manyLogs)
+    res.send(createdLogs)
+})
 // *=============================================================
 // Connect to DB
 connectDB()
