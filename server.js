@@ -72,7 +72,6 @@ app.post('/api/logs', async (req, res) => {
     } else {
         req.body.shipIsBroken = false
     }
-    const createdLog = await Log.create(req.body)
     res.redirect('/logs')
 
 })
@@ -82,6 +81,15 @@ app.post('/api/logs', async (req, res) => {
 /*
  *Delete/Destroy
  */
+ app.delete('/api/logs/:id', async (req,res)=>{
+    const {id} = req.params;
+    try{
+        const deletedLog = await Log.findByIdAndDelete(id);
+        res.redirect('/logs')
+    }catch(e){
+        console.log(e)
+    }
+})
 /*
  *Seed Route
  */
