@@ -13,7 +13,7 @@ const manyLogs = [
     },
     {
         title:'Poop Deck',
-        entry:'If growing flowers',
+        entry:'Is growing flowers',
         shipIsBroken: false
     },
     {

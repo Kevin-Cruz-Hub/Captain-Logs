@@ -1,7 +1,6 @@
 const React = require('react')
 
 function Issues({logs}){
-    console.log(logs)
     return(
         <main>
             <nav>
@@ -13,7 +12,7 @@ function Issues({logs}){
                     logs.map((log)=>{
                         return(
                             <li key={log._id}>
-                                <a href="">{log.title}</a>
+                                <a href={`/logs/${log._id}`}>{log.title}</a>
                             </li>
                         )
                     })

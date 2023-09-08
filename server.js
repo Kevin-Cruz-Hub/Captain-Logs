@@ -32,17 +32,17 @@ app.get('/', (req, res) => {
  *Index
  */
 app.get('/logs', async (req, res) => {
-    try{
+    try {
         const logs = await Log.find({})
-        res.render('Issues', {logs})
-    }catch(e){
+        res.render('Issues', { logs })
+    } catch (e) {
         console.log(e)
     }
 })
 /*
  *New
 */
-app.get('/logs/new',(req,res)=>{
+app.get('/logs/new', (req, res) => {
     console.log(req.body)
     res.render('New')
 })
@@ -52,15 +52,24 @@ app.get('/logs/new',(req,res)=>{
 /*
  *Show
  */
+app.get('/logs/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const log = await Log.findById(id)
+        res.render('Show', { log })
+    } catch (e) {
+        console.log(e)
+    }
+})
 // **=============================================================
 // API Routes
 /*
  *Create
  */
-app.post('/api/logs', async (req,res)=>{
-    if(req.body.shipIsBroken === 'on'){
+app.post('/api/logs', async (req, res) => {
+    if (req.body.shipIsBroken === 'on') {
         req.body.shipIsBroken = true
-    }else{
+    } else {
         req.body.shipIsBroken = false
     }
     const createdLog = await Log.create(req.body)
@@ -76,7 +85,7 @@ app.post('/api/logs', async (req,res)=>{
 /*
  *Seed Route
  */
-app.get('/api/logs/seed', async(req,res)=>{
+app.get('/api/logs/seed', async (req, res) => {
     const createdLogs = await Log.insertMany(manyLogs)
     res.send(createdLogs)
 })
