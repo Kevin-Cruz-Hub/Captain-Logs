@@ -49,6 +49,15 @@ app.get('/logs/new', (req, res) => {
 /*
  *Edit
  */
+app.get('/logs/:id/edit', async (req, res) => {
+    const { id } = req.params;
+    try{
+        const log = await Log.findById(id)
+        res.render('Edit',{log})
+    }catch(e){
+        console.log(e)
+    }
+})
 /*
  *Show
  */
@@ -81,12 +90,12 @@ app.post('/api/logs', async (req, res) => {
 /*
  *Delete/Destroy
  */
- app.delete('/api/logs/:id', async (req,res)=>{
-    const {id} = req.params;
-    try{
+app.delete('/api/logs/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
         const deletedLog = await Log.findByIdAndDelete(id);
         res.redirect('/logs')
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 })

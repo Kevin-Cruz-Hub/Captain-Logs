@@ -14,7 +14,12 @@ function Issues({ logs }) {
 					return (
 						<li key={log._id}>
 							<a href={`/logs/${log._id}`}>{log.title}</a>
-							<form
+							<br/>
+                            {/* Edit Link */}
+                            <a href={`/logs/${log._id}/edit`}>Edit log</a>
+
+                            {/* Delete form */}
+                            <form
 								method="POST"
 								// The method override looks for the method in action, because the form by default can only do GET and POST
 								action={`/api/logs/${log._id}?_method=DELETE`}
