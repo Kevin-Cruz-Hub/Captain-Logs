@@ -51,10 +51,10 @@ app.get('/logs/new', (req, res) => {
  */
 app.get('/logs/:id/edit', async (req, res) => {
     const { id } = req.params;
-    try{
+    try {
         const log = await Log.findById(id)
-        res.render('Edit',{log})
-    }catch(e){
+        res.render('Edit', { log })
+    } catch (e) {
         console.log(e)
     }
 })
@@ -87,6 +87,21 @@ app.post('/api/logs', async (req, res) => {
 /*
  *Update
  */
+app.put('/api/logs/:id', async (req, res) => {
+    const { id } = req.params
+    console.log(req.body)
+    if (req.body.shipIsBroken === 'on') {
+        req.body.shipIsBroken = true
+    } else {
+        req.body.shipIsBroken = false
+    }
+    try{
+        const updatedLog = await Log.findByIdAndUpdate(id, req.body, {new: true})
+        res.redirect('/logs')
+    }catch(e){
+        console.log(e)
+    }
+})
 /*
  *Delete/Destroy
  */
